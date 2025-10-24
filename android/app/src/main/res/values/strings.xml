@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Jalpa</string>
+    <string name="title_activity_main">Jalpa</string>
+    <string name="package_name">com.jalpa.chat</string>
+    <string name="custom_url_scheme">com.jalpa.chat</string>
+    <string name="default_web_client_id">404144653557-8n1cv5lm97rd3h5o5g8ke90h62rooek9.apps.googleusercontent.com</string>
+</resources>

@@ -1,0 +1,5 @@
+{
+  "name": "Jalpa",
+  "description": "An Android-themed chat application featuring guest, account-based, and personal chat modes, powered by Gemini for intelligent and dynamic conversations.",
+  "requestFramePermissions": []
+}
