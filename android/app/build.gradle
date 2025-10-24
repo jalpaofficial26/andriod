@@ -32,9 +32,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    // Use the JVM Toolchain to align all compilers to Java 17
-    kotlin {
-        jvmToolchain(17)
+    // ALIGN ALL COMPILERS TO JAVA 21 USING THE CORRECT GRADLE SYNTAX
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21.toString()
     }
 }
 
