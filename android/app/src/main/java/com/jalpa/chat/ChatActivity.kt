@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,17 +44,37 @@ class ChatActivity : AppCompatActivity() {
         val chatName = intent.getStringExtra("CHAT_NAME")
         supportActionBar?.title = chatName
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { finish() }
 
         recyclerView = findViewById(R.id.recyclerViewMessages)
         val layoutManager = LinearLayoutManager(this)
         layoutManager.stackFromEnd = true
         recyclerView.layoutManager = layoutManager
 
-        messageAdapter = MessageAdapter(messageList, currentUser!!.uid)
+        // Handle the back button press
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        })
+
+        if (currentUser == null) {
+            // Handle user not logged in
+            finish()
+            return
+        }
+
+        messageAdapter = MessageAdapter(messageList, currentUser.uid)
         recyclerView.adapter = messageAdapter
 
-        val otherUserId = intent.getStringExtra("CHAT_ID") // We'll need to pass this from HomeActivity
-        val chatRoomId = getChatRoomId(currentUser!!.uid, otherUserId!!)
+        val otherUserId = intent.getStringExtra("CHAT_ID")
+        if (otherUserId == null) {
+            // Handle missing chat ID
+            finish()
+            return
+        }
+
+        val chatRoomId = getChatRoomId(currentUser.uid, otherUserId)
         chatRoomRef = FirebaseDatabase.getInstance().getReference("chats").child(chatRoomId)
 
         listenForMessages()
@@ -93,11 +114,6 @@ class ChatActivity : AppCompatActivity() {
 
     private fun getChatRoomId(user1: String, user2: String): String {
         return if (user1 < user2) "${user1}_${user2}" else "${user2}_${user1}"
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 }
 

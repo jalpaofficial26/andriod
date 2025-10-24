@@ -32,14 +32,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    // ALIGN ALL COMPILERS TO JAVA 21 USING THE CORRECT GRADLE SYNTAX
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21.toString()
-    }
+}
+
+// THIS IS THE SINGLE SOURCE OF TRUTH: ENFORCE JAVA 17 EVERYWHERE
+kotlin {
+    jvmToolchain(17)
 }
 
 repositories {

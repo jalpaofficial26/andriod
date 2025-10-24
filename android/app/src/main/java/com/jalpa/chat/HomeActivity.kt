@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-data class User(val uid: String = "", val name: String? = "", val email: String? = "")
-
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
